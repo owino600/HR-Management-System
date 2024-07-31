@@ -1,0 +1,228 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Navigation bar styles */
+.nav-bar {
+    background-color: #222;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.menu {
+    list-style: none;
+}
+
+.menu li {
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s;
+}
+
+.menu li a:hover {
+    color: #ff9900;
+}
+
+/* Banner styles */
+.banner {
+    background-image: url('images/hr.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+}
+
+.banner-heading {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form input[type="text"],
+.form input[type="date"] {
+    padding: 0.5rem;
+    margin-right: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form .book {
+    background-color: #ff9900;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form .book:hover {
+    background-color: #e68300;
+}
+
+/* Explore section styles */
+.explore {
+    background-color: #fff;
+    padding: 2rem;
+    text-align: center;
+}
+
+.explore h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.explore p {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 2rem;
+}
+
+.ctn {
+    background-color: #ff9900;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.ctn:hover {
+    background-color: #e68300;
+}
+
+/* Add more styles for other sections as needed */
+
+/* Footer styles */
+footer {
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Responsive styles (add media queries as needed) */
+@media (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+}
+
+.upcoming-tours {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 50px 0;
+}
+
+.upcoming-tours-content {
+    text-align: center;
+    max-width: 800px;
+}
+
+.tour-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 30px;
+    height: 800px;
+}
+
+.tour-card {
+    flex-basis: 300px;
+    text-align: center;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Adjust the gap between icons as needed */
+}
+
+/* Style the individual social media icon links */
+.social-icons a {
+    color: #333; /* Set the default color for the icons */
+    font-size: 40px; /* Adjust the size of the icons */
+    text-decoration: none; /* Remove the underline from the links */
+    transition: color 0.3s ease; /* Add a smooth transition effect on hover */
+}
+
+/* Style the icons on hover */
+.social-icons a:hover {
+    color: #007bff; /* Change the color of the icons on hover */
+}
+
+/* Style the login form */
+.login-container {
+    width: 300px;
+    margin: 100px auto;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container form input {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-container form button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-container form button:hover {
+    background-color: #218838;
+}
