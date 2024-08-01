@@ -7,18 +7,22 @@ const session = require('express-session');
 
 const app = express();
 app.use(bodyParser.json());
-app.use(express.static('public')); // Assuming you put your HTML and JS files in a folder named 'public'
+app.use(express.static('public'));
 
 // MySQL connection
 const db = mysql.createConnection({
-    host: '127.0.0.1', // XAMPP runs MySQL on localhost
-    user: 'root', // Default user for XAMPP MySQL
-    password: '', // Default password for XAMPP MySQL (usually empty)
-    database: 'hr_system' // Your database name
+    host: '127.0.0.1',
+    user: 'root',
+    password: '',
+    database: 'hr_system',
+    debug: true
 });
 
 db.connect((err) => {
-    if (err) throw err;
+    if (err) {
+        console.error('Database connection failed:', err.stack);
+        return;
+    }
     console.log('Connected to database');
 });
 
@@ -27,7 +31,7 @@ app.use(session({
     secret: 'your_secret_key',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Set to true if using https
+    cookie: { secure: false }
 }));
 
 // Middleware to check if user is authenticated and their role
@@ -50,9 +54,11 @@ function checkAdmin(req, res, next) {
 // User registration
 app.post('/api/register', async (req, res) => {
     const { username, password, role } = req.body;
+    console.log('Registering user:', username, role); // Debug log
     const hashedPassword = await bcrypt.hash(password, 10);
     db.query('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', [username, hashedPassword, role], (err, results) => {
         if (err) {
+            console.error('Error inserting user:', err.message); // Debug log
             res.status(500).json({ error: err.message });
         } else {
             res.json({ success: true });
@@ -60,14 +66,16 @@ app.post('/api/register', async (req, res) => {
     });
 });
 
-// User registration
+// User signup
 app.post('/api/signup', async (req, res) => {
     const { username, password } = req.body;
+    console.log('Signing up user:', username); // Debug log
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const query = 'INSERT INTO users (username, password, role) VALUES (?, ?, ?)';
     db.query(query, [username, hashedPassword, 'user'], (err, result) => {
         if (err) {
+            console.error('Error signing up user:', err.message); // Debug log
             return res.json({ success: false, message: 'Error signing up' });
         }
         res.json({ success: true, message: 'User registered successfully' });
@@ -77,8 +85,10 @@ app.post('/api/signup', async (req, res) => {
 // User login
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
+    console.log('Logging in user:', username); // Debug log
     db.query('SELECT * FROM users WHERE username = ?', [username], async (err, results) => {
         if (err) {
+            console.error('Error fetching user:', err.message); // Debug log
             res.status(500).json({ error: err.message });
         } else if (results.length === 0) {
             res.status(401).json({ error: 'Invalid username or password' });
