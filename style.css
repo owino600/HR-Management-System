@@ -188,6 +188,7 @@ footer {
 /* Style the login form */
 .login-container {
     width: 700px;
+    height: 500px;
     margin: 100px auto;
     padding: 120px;
     border: 1px solid #ccc;
@@ -197,7 +198,7 @@ footer {
 
 .login-container h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .login-container form {
@@ -207,8 +208,8 @@ footer {
 
 .login-container form input {
     margin-bottom: 15px;
-    padding: 10px;
-    font-size: 16px;
+    padding: 22px;
+    font-size: 22px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -216,7 +217,7 @@ footer {
 
 .login-container form button {
     padding: 10px;
-    font-size: 16px;
+    font-size: 22px;
     background-color: #28a745;
     color: #fff;
     border: none;
@@ -230,9 +231,10 @@ footer {
 
 /* Style the sign-up form */
 .signup-container {
-    width: 300px;
+    width: 700px;
+    height: 500px;
     margin: 100px auto;
-    padding: 30px;
+    padding: 50px;
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -240,7 +242,7 @@ footer {
 
 .signup-container h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .signup-container form {
@@ -249,16 +251,16 @@ footer {
 }
 
 .signup-container form input {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 22px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 .signup-container form button {
-    padding: 10px;
-    font-size: 16px;
+    padding: 20px;
+    font-size: 20px;
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -268,4 +270,10 @@ footer {
 
 .signup-container form button:hover {
     background-color: #0056b3;
+}
+
+p {
+    font-size: larger;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding: 10px;
 }
