@@ -11,10 +11,10 @@ app.use(express.static('public')); // Assuming you put your HTML and JS files in
 
 // MySQL connection
 const db = mysql.createConnection({
-    host: 'your_host',
-    user: 'your_user',
-    password: 'your_password',
-    database: 'hr_system'
+    host: '127.0.0.1', // XAMPP runs MySQL on localhost
+    user: 'root', // Default user for XAMPP MySQL
+    password: '', // Default password for XAMPP MySQL (usually empty)
+    database: 'hr_system' // Your database name
 });
 
 db.connect((err) => {
@@ -74,7 +74,6 @@ app.post('/api/signup', async (req, res) => {
     });
 });
 
-
 // User login
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
@@ -100,7 +99,6 @@ app.post('/api/login', (req, res) => {
 app.get('/api/checkUserRole', checkAuth, (req, res) => {
     res.json({ role: req.session.user.role });
 });
-
 
 // Check leave status
 app.get('/api/checkLeaveStatus', checkAuth, (req, res) => {
@@ -175,6 +173,6 @@ app.post('/api/logout', (req, res) => {
 });
 
 // Start server
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
+app.listen(3306, () => {
+    console.log('Server started on port 3306');
 });
