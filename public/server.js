@@ -10,6 +10,12 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
+// Middleware for logging
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
+});
+
 // MySQL connection
 const db = mysql.createConnection({
     host: '127.0.0.1',
@@ -54,7 +60,6 @@ function checkAdmin(req, res, next) {
 
 // User signup
 app.post('/api/signup', async (req, res) => {
-    console.log('Request received at /api/signup'); // Debug log
     const { username, password, role } = req.body;
     console.log('Signing up user:', username, role); // Debug log
     const hashedPassword = await bcrypt.hash(password, 10);
