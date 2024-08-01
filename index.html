@@ -35,17 +35,23 @@
     </section>
 
     <!-- Sign-Up Form -->
-    <section class="signup" id="signup-section" style="display:none;">
+     <section class="signup" id="signup-section" style="display:none;">
         <div class="signup-container">
             <h1>Sign Up</h1>
             <form id="signup-form">
                 <input type="text" id="signup-username" placeholder="Username" required>
                 <input type="password" id="signup-password" placeholder="Password" required>
+                <label for="signup-role">Role:</label>
+                <select id="signup-role" required>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
                 <button type="button" onclick="signUp()">Sign Up</button>
             </form>
             <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
         </div>
     </section>
+
 
     <!-- Main Content -->
     <div id="main-content" style="display:none;">
