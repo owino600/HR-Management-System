@@ -68,12 +68,12 @@ app.post('/api/register', async (req, res) => {
 
 // User signup
 app.post('/api/signup', async (req, res) => {
-    const { username, password } = req.body;
-    console.log('Signing up user:', username); // Debug log
+    const { username, password, role } = req.body;
+    console.log('Signing up user:', username, role); // Debug log
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const query = 'INSERT INTO users (username, password, role) VALUES (?, ?, ?)';
-    db.query(query, [username, hashedPassword, 'user'], (err, result) => {
+    db.query(query, [username, hashedPassword, role], (err, result) => {
         if (err) {
             console.error('Error signing up user:', err.message); // Debug log
             return res.json({ success: false, message: 'Error signing up' });

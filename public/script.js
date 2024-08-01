@@ -65,6 +65,7 @@ function showSignUp() {
 async function signUp() {
     const username = document.getElementById('signup-username').value;
     const password = document.getElementById('signup-password').value;
+    const role = document.getElementById('signup-role').value;
 
     try {
         const response = await fetch('/api/signup', {
@@ -72,7 +73,7 @@ async function signUp() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify({ username, password, role}),
         });
         const data = await response.json();
         if (data.success) {
