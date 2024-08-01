@@ -173,6 +173,6 @@ app.post('/api/logout', (req, res) => {
 });
 
 // Start server
-app.listen(3306, () => {
-    console.log('Server started on port 3306');
+app.listen(5500, () => {
+    console.log('Server started on port 5500');
 });
