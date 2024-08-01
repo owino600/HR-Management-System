@@ -75,6 +75,9 @@ async function signUp() {
             },
             body: JSON.stringify({ username, password, role}),
         });
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
         const data = await response.json();
         if (data.success) {
             alert('Sign up successful, please login.');
