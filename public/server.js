@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const session = require('express-session');
 
 const app = express();
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
