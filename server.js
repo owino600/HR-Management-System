@@ -60,7 +60,7 @@ app.post('/api/register', async (req, res) => {
     });
 });
 
-// User signup
+// User registration
 app.post('/api/signup', async (req, res) => {
     const { username, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -173,6 +173,6 @@ app.post('/api/logout', (req, res) => {
 });
 
 // Start server
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
+app.listen(3306, () => {
+    console.log('Server started on port 3306');
 });
