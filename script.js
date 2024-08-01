@@ -52,6 +52,41 @@ async function handleSearch() {
     }
 }
 
+function showLogin() {
+    document.getElementById('login-section').style.display = 'block';
+    document.getElementById('signup-section').style.display = 'none';
+}
+
+function showSignUp() {
+    document.getElementById('login-section').style.display = 'none';
+    document.getElementById('signup-section').style.display = 'block';
+}
+
+async function signUp() {
+    const username = document.getElementById('signup-username').value;
+    const password = document.getElementById('signup-password').value;
+
+    try {
+        const response = await fetch('/api/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        });
+        const data = await response.json();
+        if (data.success) {
+            alert('Sign up successful, please login.');
+            showLogin();
+        } else {
+            alert('Sign up failed');
+        }
+    } catch (error) {
+        alert('Error signing up');
+        console.error(error);
+    }
+}
+
 async function addLeaveStatus() {
     const userId = document.getElementById('userId').value;
     const status = document.getElementById('leaveStatus').value;

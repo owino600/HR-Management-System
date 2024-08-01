@@ -60,6 +60,21 @@ app.post('/api/register', async (req, res) => {
     });
 });
 
+// User registration
+app.post('/api/signup', async (req, res) => {
+    const { username, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const query = 'INSERT INTO users (username, password, role) VALUES (?, ?, ?)';
+    db.query(query, [username, hashedPassword, 'user'], (err, result) => {
+        if (err) {
+            return res.json({ success: false, message: 'Error signing up' });
+        }
+        res.json({ success: true, message: 'User registered successfully' });
+    });
+});
+
+
 // User login
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
