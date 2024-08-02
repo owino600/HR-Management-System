@@ -78,24 +78,33 @@ app.post('/api/signup', async (req, res) => {
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
     console.log('Logging in user:', username); // Debug log
+
     db.query('SELECT * FROM users WHERE username = ?', [username], async (err, results) => {
         if (err) {
             console.error('Error fetching user:', err.message); // Debug log
-            res.status(500).json({ error: err.message });
-        } else if (results.length === 0) {
-            res.status(401).json({ error: 'Invalid username or password' });
+            return res.status(500).json({ error: 'Database error' });
+        }
+
+        if (results.length === 0) {
+            console.log('User not found:', username); // Debug log
+            return res.status(401).json({ error: 'Invalid username or password' });
+        }
+
+        const user = results[0];
+        console.log('User found:', user); // Debug log
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (isMatch) {
+            req.session.user = { id: user.id, role: user.role };
+            console.log('Password match, user logged in:', username); // Debug log
+            res.json({ success: true });
         } else {
-            const user = results[0];
-            const isMatch = await bcrypt.compare(password, user.password);
-            if (isMatch) {
-                req.session.user = { id: user.id, role: user.role };
-                res.json({ success: true });
-            } else {
-                res.status(401).json({ error: 'Invalid username or password' });
-            }
+            console.log('Password mismatch for user:', username); // Debug log
+            res.status(401).json({ error: 'Invalid username or password' });
         }
     });
 });
+
 
 // Check user role
 app.get('/api/checkUserRole', checkAuth, (req, res) => {
