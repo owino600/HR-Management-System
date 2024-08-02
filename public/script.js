@@ -4,9 +4,7 @@ async function handleSearch() {
 
     if (input === "Check Leave Status") {
         try {
-            const response = await fetch('/api/checkLeaveStatus', {
-                method: 'GET',
-            });
+            const response = await fetch('/api/checkLeaveStatus', { method: 'GET' });
             const data = await response.json();
             alert(`Your leave status: ${data.status}`);
         } catch (error) {
@@ -15,9 +13,7 @@ async function handleSearch() {
         }
     } else if (input === "Check Off Days") {
         try {
-            const response = await fetch('/api/checkOffDays', {
-                method: 'GET',
-            });
+            const response = await fetch('/api/checkOffDays', { method: 'GET' });
             const data = await response.json();
             alert(`You have ${data.offDays} off days.`);
         } catch (error) {
@@ -29,9 +25,7 @@ async function handleSearch() {
             try {
                 const response = await fetch('/api/requestLeave', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ date: date }),
                 });
                 const data = await response.json();
@@ -70,10 +64,8 @@ async function signUp() {
     try {
         const response = await fetch('/api/signup', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, password, role}),
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password, role }),
         });
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -98,9 +90,7 @@ async function addLeaveStatus() {
     try {
         const response = await fetch('/api/addLeaveStatus', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId: userId, status: status }),
         });
         const data = await response.json();
@@ -122,9 +112,7 @@ async function addOffDays() {
     try {
         const response = await fetch('/api/addOffDays', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId: userId, offDays: offDays }),
         });
         const data = await response.json();
@@ -139,7 +127,6 @@ async function addOffDays() {
     }
 }
 
-// Handle user login
 async function login() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -147,9 +134,7 @@ async function login() {
     try {
         const response = await fetch('/api/login', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
         });
         const data = await response.json();
@@ -167,12 +152,9 @@ async function login() {
     }
 }
 
-// Check user role and show/hide admin panel
 async function checkUserRole() {
     try {
-        const response = await fetch('/api/checkUserRole', {
-            method: 'GET',
-        });
+        const response = await fetch('/api/checkUserRole', { method: 'GET' });
         const data = await response.json();
         if (data.role === 'admin') {
             document.getElementById('admin-section').style.display = 'block';
@@ -184,7 +166,6 @@ async function checkUserRole() {
     }
 }
 
-// On page load, check if user is logged in and their role
 window.onload = async function() {
     await checkUserRole();
 }
