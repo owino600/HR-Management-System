@@ -61,16 +61,22 @@ function checkAdmin(req, res, next) {
 app.post('/api/signup', async (req, res) => {
     const { username, password, role } = req.body;
     console.log('Signing up user:', username, role); // Debug log
-    const hashedPassword = await bcrypt.hash(password, 10);
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        console.log('Hashed Password:', hashedPassword); // Debug log
 
-    const query = 'INSERT INTO users (username, password, role) VALUES (?, ?, ?)';
-    db.query(query, [username, hashedPassword, role], (err, result) => {
-        if (err) {
-            console.error('Error signing up user:', err.message); // Debug log
-            return res.status(500).json({ success: false, message: 'Error signing up' });
-        }
-        res.json({ success: true, message: 'User registered successfully' });
-    });
+        const query = 'INSERT INTO users (username, password, role) VALUES (?, ?, ?)';
+        db.query(query, [username, hashedPassword, role], (err, result) => {
+            if (err) {
+                console.error('Error signing up user:', err.message); // Debug log
+                return res.status(500).json({ success: false, message: 'Error signing up' });
+            }
+            res.json({ success: true, message: 'User registered successfully' });
+        });
+    } catch (err) {
+        console.error('Error hashing password:', err.message); // Debug log
+        res.status(500).json({ success: false, message: 'Error signing up' });
+    }
 });
 
 // User login
