@@ -14,12 +14,12 @@ body {
 
 /* Navigation bar styles */
 .nav-bar {
-    background-color: #222;
-    color: #fff;
+    background-color: lightskyblue;
+    color: black;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    padding: 2.7rem;
 }
 
 .logo {
@@ -34,16 +34,17 @@ body {
 .menu li {
     display: inline-block;
     margin-right: 1rem;
+    font-size: 2rem;
 }
 
 .menu li a {
     text-decoration: none;
-    color: #fff;
+    color: black;
     transition: color 0.3s;
 }
 
 .menu li a:hover {
-    color: #ff9900;
+    color: red;
 }
 
 /* Banner styles */
@@ -57,6 +58,7 @@ body {
     justify-content: center;
     text-align: center;
     color: #fff;
+    font-weight: 500;
 }
 
 .banner-heading {
