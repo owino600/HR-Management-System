@@ -108,15 +108,24 @@ app.get('/api/checkUserRole', checkAuth, (req, res) => {
 });
 
 // Check leave status
-app.get('/api/checkLeaveStatus', checkAuth, (req, res) => {
+app.get('/api/checkLeaveStatus', checkAuth, async (req, res) => {
     const userId = req.session.user.id;
-    db.query('SELECT status FROM leave_status WHERE user_id = ?', [userId], (err, results) => {
-        if (err) {
-            res.status(500).json({ error: err.message });
-        } else {
-            res.json({ status: results[0].status });
-        }
-    });
+    try {
+        db.query('SELECT status FROM leave_status WHERE user_id = ?', [userId], (err, results) => {
+            if (err) {
+                console.error('Error fetching leave status:', err.message); // Debug log
+                return res.status(500).json({ error: 'Error fetching leave status' });
+            }
+            if (results.length > 0) {
+                res.json({ status: results[0].status });
+            } else {
+                res.status(404).json({ error: 'No leave status found' });
+            }
+        });
+    } catch (err) {
+        console.error('Error:', err.message); // Debug log
+        res.status(500).json({ error: 'Server error' });
+    }
 });
 
 // Check off days
@@ -145,27 +154,36 @@ app.post('/api/requestLeave', checkAuth, (req, res) => {
 });
 
 // Add leave status for a user (Admin only)
-app.post('/api/addLeaveStatus', checkAdmin, (req, res) => {
+app.post('/api/addLeaveStatus', checkAdmin, async (req, res) => {
     const { userId, status } = req.body;
-    db.query('INSERT INTO leave_status (user_id, status) VALUES (?, ?)', [userId, status], (err, results) => {
-        if (err) {
-            res.status(500).json({ error: err.message });
-        } else {
+    try {
+        db.query('INSERT INTO leave_status (user_id, status) VALUES (?, ?)', [userId, status], (err, results) => {
+            if (err) {
+                console.error('Error adding leave status:', err.message); // Debug log
+                return res.status(500).json({ error: 'Error adding leave status' });
+            }
             res.json({ success: true });
-        }
-    });
+        });
+    } catch (err) {
+        console.error('Error:', err.message); // Debug log
+        res.status(500).json({ error: 'Server error' });
+    }
 });
-
 // Add off days for a user (Admin only)
-app.post('/api/addOffDays', checkAdmin, (req, res) => {
+app.post('/api/addOffDays', checkAdmin, async (req, res) => {
     const { userId, offDays } = req.body;
-    db.query('UPDATE users SET off_days = off_days + ? WHERE id = ?', [offDays, userId], (err, results) => {
-        if (err) {
-            res.status(500).json({ error: err.message });
-        } else {
+    try {
+        db.query('UPDATE users SET off_days = off_days + ? WHERE id = ?', [offDays, userId], (err, results) => {
+            if (err) {
+                console.error('Error adding off days:', err.message); // Debug log
+                return res.status(500).json({ error: 'Error adding off days' });
+            }
             res.json({ success: true });
-        }
-    });
+        });
+    } catch (err) {
+        console.error('Error:', err.message); // Debug log
+        res.status(500).json({ error: 'Server error' });
+    }
 });
 
 // Logout
